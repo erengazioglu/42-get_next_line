@@ -6,17 +6,23 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2025/12/20 16:13:27 by egaziogl         ###   ########.fr       */
+/*   Updated: 2025/12/21 21:40:19 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*get_next_line(int fd)
 {
 	char	*result;
+	char	*buf;
+	int		bytes_read;
 
-	printf("buffer size: %d\n", BUFFER_SIZE);
-	return (result);
+	buf = malloc(BUFFER_SIZE);
+	if (!buf)
+		return (NULL);
+	bytes_read = 0;
+	bytes_read += read(fd, buf, BUFFER_SIZE);
+
+	return (buf);
 }
