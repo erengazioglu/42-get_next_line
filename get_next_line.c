@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2025/12/20 15:54:52 by egaziogl         ###   ########.fr       */
+/*   Updated: 2025/12/20 16:13:27 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,4 @@ char	*get_next_line(int fd)
 
 	printf("buffer size: %d\n", BUFFER_SIZE);
 	return (result);
-}
-
-int	main(void)
-{
-	get_next_line(0);
 }
