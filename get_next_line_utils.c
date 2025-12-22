@@ -6,7 +6,43 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:38:41 by egaziogl          #+#    #+#             */
-/*   Updated: 2025/12/20 15:38:43 by egaziogl         ###   ########.fr       */
+/*   Updated: 2025/12/22 19:24:01 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
+int		ft_strlen(char *s)
+{
+	int	i;
+	
+	i = 0;
+	while (*(s++))
+		i++;
+	return (i);
+}
+
+#include <stdio.h>
+
+char	*ft_strnjoin(char *s1, char *s2, int n)
+{
+	char	*result;
+	char	*temp;
+
+	if (n < 0 || n > ft_strlen(s2))
+		result = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	else
+		result = malloc((ft_strlen(s1) + n + 1) * sizeof(char));
+	if (!result)
+		return (NULL);
+	temp = result;
+	while (*s1)
+		*(temp++) = *(s1++);
+	while (*s2 && n != 0)
+	{
+		*(temp++) = *(s2++);
+		n--;
+	}
+	*temp = '\0';
+	return (result);
+}
