@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2025/12/21 21:40:19 by egaziogl         ###   ########.fr       */
+/*   Updated: 2025/12/24 01:03:09 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 char	*get_next_line(int fd)
 {
+	static char* result;
 	char	*result;
 	char	*buf;
 	int		bytes_read;
