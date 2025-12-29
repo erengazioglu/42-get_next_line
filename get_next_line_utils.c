@@ -6,13 +6,26 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:38:41 by egaziogl          #+#    #+#             */
-/*   Updated: 2025/12/22 19:24:01 by egaziogl         ###   ########.fr       */
+/*   Updated: 2025/12/24 09:38:22 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		ft_strlen(char *s)
+int	ft_strchr(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i]))
+	{
+		if (s[i++] == c)
+			return (i);
+	}
+	return (-1);
+}
+
+int	ft_strlen(char *s)
 {
 	int	i;
 	
