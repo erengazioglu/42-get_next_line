@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:38:41 by egaziogl          #+#    #+#             */
-/*   Updated: 2025/12/24 09:38:22 by egaziogl         ###   ########.fr       */
+/*   Updated: 2025/12/30 19:06:19 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_strchr(char *s, char c)
 	int	i;
 
 	i = 0;
-	while (s[i]))
+	while (s[i])
 	{
 		if (s[i++] == c)
 			return (i);
@@ -35,7 +35,27 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	unsigned char	*temp;
+	size_t			bytes;
+	void			*ptr;
+
+	if (count > SIZE_MAX / size)
+		return (NULL);
+	if (count == 0 || size == 0)
+		return (malloc(0));
+	bytes = count * size;
+	temp = malloc(bytes);
+	if (!temp)
+		return (NULL);
+	ptr = (void *) temp;
+	while (bytes--)
+		*(temp++) = 0;
+	return (ptr);
+}
 
 char	*ft_strnjoin(char *s1, char *s2, int n)
 {
@@ -43,9 +63,9 @@ char	*ft_strnjoin(char *s1, char *s2, int n)
 	char	*temp;
 
 	if (n < 0 || n > ft_strlen(s2))
-		result = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+		result = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
 	else
-		result = malloc((ft_strlen(s1) + n + 1) * sizeof(char));
+		result = ft_calloc((ft_strlen(s1) + n + 1), sizeof(char));
 	if (!result)
 		return (NULL);
 	temp = result;

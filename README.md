@@ -30,7 +30,7 @@ _(More on this later.)_
 
 ### Implementation
 
-Here's the initial algorithm I drafted in pseudocode:
+Here's the algorithm I initially drafted in pseudocode:
 
 (init)
 - malloc a string named `buffer` with `size=buf_size * sizeof(char)`. Don't ever re-malloc this one. (static for sure)
