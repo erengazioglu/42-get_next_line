@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:38:41 by egaziogl          #+#    #+#             */
-/*   Updated: 2025/12/30 19:06:19 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/02 08:09:22 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,29 @@ char	*ft_strnjoin(char *s1, char *s2, int n)
 		n--;
 	}
 	*temp = '\0';
+	return (result);
+}
+
+// expects a memory allocated string
+char	*ft_strldel(char *str, unsigned int n)
+{
+	// "hello my friend", 0 -> hello my friend
+	// "hello my friend", 3 -> lo my friend
+	char	*result;
+	int		len;
+	int		i;
+
+	len = ft_strlen(str);
+	if (n >= len)
+		return malloc(0);
+	if (n == 0)
+		return str;
+	result = ft_calloc(len + 1 - n, sizeof(char));
+	if (!result)
+		return (NULL);
+	i = 0;
+	while (n < len + 1)
+		result[i++] = str[n++];
+	free(str);
 	return (result);
 }
