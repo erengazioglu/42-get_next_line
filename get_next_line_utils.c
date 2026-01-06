@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:38:41 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/02 08:09:22 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/06 22:37:49 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-// #include <stdio.h>
-
 void	*ft_calloc(size_t count, size_t size)
 {
 	unsigned char	*temp;
@@ -57,49 +55,66 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-char	*ft_strnjoin(char *s1, char *s2, int n)
+char	*ft_strnjoin(char *s1, char *s2, ssize_t n, bool free_s1)
 {
 	char	*result;
-	char	*temp;
+	char	*result_base;
+	char	*s1_base;
+	int		s1_len;
+	int		s2_len;
 
-	if (n < 0 || n > ft_strlen(s2))
-		result = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	if (n < 0 || n > s2_len)
+		result = ft_calloc((s1_len + s2_len + 1), sizeof(char));
 	else
-		result = ft_calloc((ft_strlen(s1) + n + 1), sizeof(char));
+		result = ft_calloc((s1_len + n + 1), sizeof(char));
 	if (!result)
 		return (NULL);
-	temp = result;
+	result_base = result;
+	s1_base = s1;
 	while (*s1)
-		*(temp++) = *(s1++);
-	while (*s2 && n != 0)
-	{
-		*(temp++) = *(s2++);
-		n--;
-	}
-	*temp = '\0';
-	return (result);
+		*(result++) = *(s1++);
+	while (*s2 && n-- != 0)
+		*(result++) = *(s2++);
+	*result = '\0';
+	if (free_s1)
+		free(s1_base);
+	return (result_base);
 }
 
-// expects a memory allocated string
-char	*ft_strldel(char *str, unsigned int n)
+// returns the null character at the end, super hacky
+char	*ft_strcpy_lb(char *dst, char *src, char delim, bool lb)
 {
-	// "hello my friend", 0 -> hello my friend
-	// "hello my friend", 3 -> lo my friend
-	char	*result;
-	int		len;
-	int		i;
-
-	len = ft_strlen(str);
-	if (n >= len)
-		return malloc(0);
-	if (n == 0)
-		return str;
-	result = ft_calloc(len + 1 - n, sizeof(char));
-	if (!result)
-		return (NULL);
-	i = 0;
-	while (n < len + 1)
-		result[i++] = str[n++];
-	free(str);
-	return (result);
+	while (*src != delim)
+		*dst++ = *src++;
+	if (lb)
+		*dst++ = '\n';
+	*dst = '\0';
+	return (dst);
 }
+
+
+// char	*ft_strldel(char *str, size_t n, bool free_str)
+// {
+// 	// "hello my friend", 0 -> hello my friend
+// 	// "hello my friend", 3 -> lo my friend
+// 	char	*result;
+// 	int		len;
+// 	int		i;
+
+// 	len = ft_strlen(str);
+// 	if (n >= len)
+// 		return malloc(0);
+// 	if (n == 0)
+// 		return (str);
+// 	result = ft_calloc(len + 1 - n, sizeof(char));
+// 	if (!result)
+// 		return (NULL);
+// 	i = 0;
+// 	while (n < len + 1)
+// 		result[i++] = str[n++];
+// 	if (free_str)
+// 		free(str);
+// 	return (result);
+// }

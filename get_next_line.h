@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:50 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/02 07:56:40 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/06 22:52:01 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 // utils
 int		ft_strchr(char *s, char c);
 int		ft_strlen(char *s);
-char	*ft_strnjoin(char *s1, char *s2, int n);
+char	*ft_strnjoin(char *s1, char *s2, ssize_t n, bool free_s1);
 void	*ft_calloc(size_t count, size_t size);
-char	*ft_strldel(char *str, unsigned int n);
+char	*ft_strcpy_lb(char *dst, char *src, char delim, bool lb);
 
 
 // gnl
