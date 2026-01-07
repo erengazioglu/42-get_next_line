@@ -3,3 +3,4 @@
 **/*.a
 .vscode/
 main.c
+test_file.txt

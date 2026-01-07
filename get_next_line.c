@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/07 13:55:18 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:56:22 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*init_stash(char *stash)
 		free(stash);
 		return (NULL);
 	}
-	new_stash = ft_calloc(ft_strlen(stash + lb_pos + 1) + 1, 1);
+	new_stash = ft_calloc(ft_strlen(stash + lb_pos + 1) + 2, 1);
 	if (!new_stash)
 	{
 		free(stash);
@@ -65,7 +65,7 @@ bool	init(int fd, char **stash, char **buffer, int *bytes_read)
 	return (true);
 }
 
-char	*build_stash(char **stash, char *buffer, int lb_pos)
+char	*build_stash(char **stash, char *buffer)
 {
 	char	*result;
 	char	*result_base;
@@ -111,7 +111,7 @@ char	*get_next_line(int fd)
 		lb_pos = ft_strchr(buffer, '\n');
 	}
 	if (lb_pos != -1)
-		return (build_stash(&stash, buffer, lb_pos)); // this will free buffer and add \0
+		return (build_stash(&stash, buffer)); // this will free buffer and add \0
 	stash = ft_strnjoin(stash, buffer, -1, true);
 	free(buffer);
 	return (stash);
