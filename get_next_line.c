@@ -6,36 +6,33 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/07 17:13:30 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/07 17:19:33 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*init_stash(char *stash)
+char	*init_stash(char **stash)
 {
 	char	*new_stash;
 	int		lb_pos;
 
-	if (!stash)
+	if (!(*stash))
 	{
-		stash = ft_calloc(BUFFER_SIZE, 1);
-		if (!stash)
+		*stash = ft_calloc(BUFFER_SIZE, 1);
+		if (!(*stash))
 			return (NULL);
-		return (stash);
+		return (*stash);
 	}
-	lb_pos = ft_strfind(stash, '\n');
+	lb_pos = ft_strfind(*stash, '\n');
 	if (lb_pos == -1)
-		return (free(stash), stash = NULL, NULL);
-	new_stash = ft_calloc(ft_strlen(stash + lb_pos + 1) + 2, 1);
+		return (free(*stash), *stash = NULL, NULL);
+	new_stash = ft_calloc(ft_strlen(*stash + lb_pos + 1) + 2, 1);
 	if (!new_stash)
-	{
-		free(stash);
 		return (NULL);
-	}
-	ft_strcpy_lb(new_stash, stash + lb_pos + 1, '\0', false);
-	free(stash);
+	ft_strcpy_lb(new_stash, *stash + lb_pos + 1, '\0', false);
+	free(*stash);
 	return (new_stash);
 }
 
@@ -45,7 +42,7 @@ bool	init(int fd, char **stash, char **buffer, int *bytes_read)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (false);
-	*stash = init_stash(*stash);
+	*stash = init_stash(stash);
 	if (!(*stash))
 		return (false);
 	*buffer = ft_calloc(BUFFER_SIZE + 1, 1);
