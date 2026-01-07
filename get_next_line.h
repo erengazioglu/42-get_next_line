@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:50 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/06 22:52:01 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/07 11:21:38 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <stdint.h>
 
 // utils
 int		ft_strchr(char *s, char c);
