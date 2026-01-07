@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/07 11:43:41 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/07 11:46:31 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*init_stash(char *stash)
 		free(stash);
 		return (NULL);
 	}
-	new_stash = ft_calloc(ft_strlen(stash + lb_pos + 1), 1);
+	new_stash = ft_calloc(ft_strlen(stash + lb_pos + 1) + 1, 1);
 	if (!new_stash)
 	{
 		free(stash);
