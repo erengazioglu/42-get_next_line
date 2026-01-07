@@ -6,13 +6,13 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:38:41 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/06 22:37:49 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/07 17:13:30 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strchr(char *s, char c)
+int	ft_strfind(char *s, char c)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ int	ft_strchr(char *s, char c)
 int	ft_strlen(char *s)
 {
 	int	i;
-	
+
 	i = 0;
 	while (*(s++))
 		i++;
@@ -93,28 +93,3 @@ char	*ft_strcpy_lb(char *dst, char *src, char delim, bool lb)
 	*dst = '\0';
 	return (dst);
 }
-
-
-// char	*ft_strldel(char *str, size_t n, bool free_str)
-// {
-// 	// "hello my friend", 0 -> hello my friend
-// 	// "hello my friend", 3 -> lo my friend
-// 	char	*result;
-// 	int		len;
-// 	int		i;
-
-// 	len = ft_strlen(str);
-// 	if (n >= len)
-// 		return malloc(0);
-// 	if (n == 0)
-// 		return (str);
-// 	result = ft_calloc(len + 1 - n, sizeof(char));
-// 	if (!result)
-// 		return (NULL);
-// 	i = 0;
-// 	while (n < len + 1)
-// 		result[i++] = str[n++];
-// 	if (free_str)
-// 		free(str);
-// 	return (result);
-// }

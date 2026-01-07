@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/07 15:56:22 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/07 17:13:30 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,9 @@ char	*init_stash(char *stash)
 			return (NULL);
 		return (stash);
 	}
-	lb_pos = ft_strchr(stash, '\n');
+	lb_pos = ft_strfind(stash, '\n');
 	if (lb_pos == -1)
-	{
-		free(stash);
-		return (NULL);
-	}
+		return (free(stash), stash = NULL, NULL);
 	new_stash = ft_calloc(ft_strlen(stash + lb_pos + 1) + 2, 1);
 	if (!new_stash)
 	{
@@ -70,7 +67,7 @@ char	*build_stash(char **stash, char *buffer)
 	char	*result;
 	char	*result_base;
 	char	*buffer_base;
-	
+
 	result = ft_calloc(ft_strlen(*stash) + ft_strlen(buffer) + 2, 1);
 	if (!result)
 	{
@@ -103,15 +100,15 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (!(*buffer))
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-	lb_pos = ft_strchr(buffer, '\n');
+	lb_pos = ft_strfind(buffer, '\n');
 	while (bytes_read == BUFFER_SIZE && lb_pos == -1)
 	{
 		stash = ft_strnjoin(stash, buffer, -1, true);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		lb_pos = ft_strchr(buffer, '\n');
+		lb_pos = ft_strfind(buffer, '\n');
 	}
 	if (lb_pos != -1)
-		return (build_stash(&stash, buffer)); // this will free buffer and add \0
+		return (build_stash(&stash, buffer));
 	stash = ft_strnjoin(stash, buffer, -1, true);
 	free(buffer);
 	return (stash);

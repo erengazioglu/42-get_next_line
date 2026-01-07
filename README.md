@@ -41,12 +41,12 @@ Here's the algorithm I initially drafted in pseudocode:
 
 (first read)
 - read `buf_size` into `buffer`, store retval in `bytes_read`.
-- lb_pos = `ft_strchr(buffer, '\n')`
+- lb_pos = `ft_strfind(buffer, '\n')`
 
 (while `bytes_read == buffer && lb_pos == -1`)
 - `temp = ft_strnjoin(result, buffer, -1)`, `free(result)`, `result=temp`
 - read `buf_size` into `buffer`, store retval in `bytes_read`.
-- lb_pos = `ft_strchr(buffer, '\n')`
+- lb_pos = `ft_strfind(buffer, '\n')`
 
 (if `lb_pos != -1`)
 - `temp = ft_strnjoin(result, buffer, lb_pos)`, `free(result)`, `result=temp`
