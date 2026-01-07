@@ -2,3 +2,4 @@
 **/obj
 **/*.a
 .vscode/
+main.c

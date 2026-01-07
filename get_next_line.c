@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/07 11:46:31 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/07 13:55:18 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char	*init_stash(char *stash)
 
 bool	init(int fd, char **stash, char **buffer, int *bytes_read)
 {
+	int	i;
+
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (false);
 	*stash = init_stash(*stash);
@@ -55,13 +57,11 @@ bool	init(int fd, char **stash, char **buffer, int *bytes_read)
 		free(*stash);
 		return (false);
 	}
-	*bytes_read = read(fd, *buffer, BUFFER_SIZE);
-	if (!(*bytes_read))
-	{
-		free(*buffer);
-		free(*stash);
-		return (false);
-	}
+	ft_strcpy_lb(*buffer, *stash, '\0', false);
+	*bytes_read = BUFFER_SIZE;
+	i = 0;
+	while ((*stash)[i])
+		(*stash)[i++] = '\0';
 	return (true);
 }
 
@@ -101,6 +101,8 @@ char	*get_next_line(int fd)
 
 	if (!init(fd, &stash, &buffer, &bytes_read))
 		return (NULL);
+	if (!(*buffer))
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
 	lb_pos = ft_strchr(buffer, '\n');
 	while (bytes_read == BUFFER_SIZE && lb_pos == -1)
 	{
