@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/07 21:12:51 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/07 22:12:51 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*get_next_line(int fd)
 	if (lb_pos != -1)
 		return (build_stash(&stash, buffer));
 	if (bytes_read == 0)
-		return (free(stash), stash = NULL, NULL);
+		return (free(buffer), free(stash), stash = NULL, NULL);
 	stash = ft_strnjoin(stash, buffer, -1, true);
 	free(buffer);
 	return (stash);
