@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/09 15:00:48 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:24:16 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	init(int fd, char **stash, char **buffer, int *bytes_read)
 	return (true);
 }
 
-char	*build_stash(char **stash, char *buffer)
+char	*handle_lb(char **stash, char *buffer)
 {
 	char	*result;
 	char	*result_base;
@@ -76,7 +76,30 @@ char	*build_stash(char **stash, char *buffer)
 	free(buffer_base);
 	free(*stash);
 	*stash = result_base;
-	return (*stash);
+	result_base = ft_calloc(ft_strlen(*stash) + 1, 1);
+	if (!result_base)
+		return (free(*stash), *stash = NULL, NULL);
+	ft_strcpy_lb(result_base, *stash, '\0', false);
+	return (result_base);
+}
+
+char	*handle_eof(char **stash, char *buffer, int bytes_read)
+{
+	char	*result;
+
+	result = NULL;
+	if (bytes_read == 0)
+	{
+		if (ft_strlen(*stash) != 0)
+			result = ft_strnjoin("", *stash, -1, false);
+		return (free(buffer), free(*stash), *stash = NULL, result);
+	}
+	*stash = ft_strnjoin(*stash, buffer, -1, true);
+	free(buffer);
+	if (!stash)
+		return (NULL);
+	result = ft_strnjoin("", *stash, -1, false);
+	return (free(*stash), result);
 }
 
 char	*get_next_line(int fd)
@@ -96,14 +119,12 @@ char	*get_next_line(int fd)
 	while (bytes_read == BUFFER_SIZE && lb_pos == -1)
 	{
 		stash = ft_strnjoin(stash, buffer, -1, true);
+		if (!stash)
+			return (free(buffer), NULL);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		lb_pos = ft_strfind(buffer, '\n');
 	}
 	if (lb_pos != -1)
-		return (build_stash(&stash, buffer));
-	if (bytes_read == 0)
-		return (free(buffer), free(stash), stash = NULL, NULL);
-	stash = ft_strnjoin(stash, buffer, -1, true);
-	free(buffer);
-	return (stash);
+		return (handle_lb(&stash, buffer));
+	return (handle_eof(&stash, buffer, bytes_read));
 }
