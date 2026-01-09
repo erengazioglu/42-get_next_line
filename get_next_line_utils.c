@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:38:41 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/09 16:36:04 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/09 21:27:41 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_strfind(char *s, char c)
 	while (s[i])
 	{
 		if (s[i++] == c)
-			return (i);
+			return (i - 1);
 	}
 	return (-1);
 }

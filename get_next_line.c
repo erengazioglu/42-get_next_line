@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/09 17:58:17 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/09 21:28:46 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,16 @@ char	*init_stash(char **stash)
 
 	if (!(*stash))
 	{
-		*stash = ft_calloc(BUFFER_SIZE, 1);
+		*stash = ft_calloc(BUFFER_SIZE + 1, 1);
 		if (!(*stash))
 			return (NULL);
 		return (*stash);
 	}
 	lb_pos = ft_strfind(*stash, '\n');
 	if (lb_pos == -1)
+		// this should return the remaining data instead
 		return (free(*stash), *stash = NULL, NULL);
-	new_stash = ft_calloc(ft_strlen(*stash + lb_pos + 1) + 2, 1);
-	if (!new_stash)
-		return (NULL);
-	ft_strcpy_lb(new_stash, *stash + lb_pos + 1, '\0', false);
+	new_stash = ft_strnjoin("", *stash + lb_pos + 1, -1, false);
 	free(*stash);
 	return (new_stash);
 }
@@ -56,31 +54,43 @@ bool	init(int fd, char **stash, char **buffer, int *bytes_read)
 	return (true);
 }
 
-char	*handle_lb(char **stash, char *buffer)
+char	*handle_lb(char **stash, char *buffer, int lb_pos, int bytes_read)
 {
 	char	*result;
-	char	*result_base;
-	char	*buffer_base;
+	int		stash_len;
 
-	result = ft_calloc(ft_strlen(*stash) + ft_strlen(buffer) + 2, 1);
+	stash_len = ft_strlen(*stash);
+	*stash = ft_strnjoin(*stash, buffer, bytes_read, true);
+	if (!(*stash))
+		return (free(buffer), NULL);
+	result = ft_strnjoin("", *stash, stash_len + lb_pos + 1, false);
 	if (!result)
 		return (free(*stash), free(buffer), (*stash) = NULL, NULL);
-	result_base = result;
-	buffer_base = buffer;
-	result = ft_strcpy_lb(result, *stash, '\0', false);
-	result = ft_strcpy_lb(result, buffer, '\n', true);
-	while (*buffer != '\n')
-		buffer++;
-	result++;
-	result = ft_strcpy_lb(result, ++buffer, '\0', false);
-	free(buffer_base);
-	free(*stash);
-	*stash = result_base;
-	result_base = ft_calloc(ft_strlen(*stash) + 1, 1);
-	if (!result_base)
-		return (free(*stash), *stash = NULL, NULL);
-	ft_strcpy_lb(result_base, *stash, '\0', false);
-	return (result_base);
+	return (free(buffer), result);
+
+	// char	*result;
+	// char	*result_base;
+	// char	*buffer_base;
+
+	// result = ft_calloc(ft_strlen(*stash) + ft_strlen(buffer) + 2, 1);
+	// if (!result)
+	// 	return (free(*stash), free(buffer), (*stash) = NULL, NULL);
+	// result_base = result;
+	// buffer_base = buffer;
+	// result = ft_strcpy_lb(result, *stash, '\0', false);
+	// result = ft_strcpy_lb(result, buffer, '\n', true);
+	// while (*buffer != '\n')
+	// 	buffer++;
+	// result++;
+	// result = ft_strcpy_lb(result, ++buffer, '\0', false);
+	// free(buffer_base);
+	// free(*stash);
+	// *stash = result_base;
+	// result_base = ft_calloc(ft_strlen(*stash) + 1, 1);
+	// if (!result_base)
+	// 	return (free(*stash), *stash = NULL, NULL);
+	// ft_strcpy_lb(result_base, *stash, '\0', false);
+	// return (result_base);
 }
 
 char	*handle_eof(char **stash, char *buffer, int bytes_read)
@@ -125,6 +135,6 @@ char	*get_next_line(int fd)
 		lb_pos = ft_strfind(buffer, '\n');
 	}
 	if (lb_pos != -1)
-		return (handle_lb(&stash, buffer));
+		return (handle_lb(&stash, buffer, lb_pos, bytes_read));
 	return (handle_eof(&stash, buffer, bytes_read));
 }
