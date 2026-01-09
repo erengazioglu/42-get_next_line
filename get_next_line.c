@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/09 17:15:25 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:58:17 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*handle_eof(char **stash, char *buffer, int bytes_read)
 	free(buffer);
 	if (!(*stash))
 		return (NULL);
-	result = ft_strnjoin("", *stash, -1, false);
+	result = ft_strnjoin("", *stash, bytes_read, false);
 	return (result);
 }
 
