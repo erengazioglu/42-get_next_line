@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:38:41 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/09 16:23:25 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:36:04 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,11 @@ char	*ft_strnjoin(char *s1, char *s2, ssize_t n, bool free_s1)
 	char	*result;
 	char	*result_base;
 	char	*s1_base;
-	int		s1_len;
-	int		s2_len;
 
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	if (n < 0 || n > s2_len)
-		result = ft_calloc((s1_len + s2_len + 1), sizeof(char));
+	if (n < 0 || n > ft_strlen(s2))
+		result = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
 	else
-		result = ft_calloc((s1_len + n + 1), sizeof(char));
+		result = ft_calloc((ft_strlen(s1) + n + 1), sizeof(char));
 	if (!result)
 	{
 		if (free_s1)

@@ -6,7 +6,7 @@
 /*   By: egaziogl <egaziogl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:27:28 by egaziogl          #+#    #+#             */
-/*   Updated: 2026/01/09 16:25:05 by egaziogl         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:15:25 by egaziogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	init(int fd, char **stash, char **buffer, int *bytes_read)
 		return (false);
 	*buffer = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!(*buffer))
-		return(free(*stash), stash = NULL, false);
+		return (free(*stash), stash = NULL, false);
 	ft_strcpy_lb(*buffer, *stash, '\0', false);
 	*bytes_read = BUFFER_SIZE;
 	i = 0;
@@ -94,9 +94,9 @@ char	*handle_eof(char **stash, char *buffer, int bytes_read)
 			result = ft_strnjoin("", *stash, -1, false);
 		return (free(buffer), free(*stash), *stash = NULL, result);
 	}
-	*stash = ft_strnjoin(*stash, buffer, -1, true);
+	*stash = ft_strnjoin(*stash, buffer, bytes_read, true);
 	free(buffer);
-	if (!stash)
+	if (!(*stash))
 		return (NULL);
 	result = ft_strnjoin("", *stash, -1, false);
 	return (result);
@@ -110,7 +110,7 @@ char	*get_next_line(int fd)
 	int			lb_pos;
 
 	if (!init(fd, &stash, &buffer, &bytes_read))
-		return (NULL);
+		return (stash = NULL, NULL);
 	if (!(*buffer))
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 	if (bytes_read == -1)
